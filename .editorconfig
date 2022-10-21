@@ -8,11 +8,24 @@ indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
 
+[*.scss]
+indent_size = 2
+
 [*.md]
 trim_trailing_whitespace = false
 
 [*.{yml,yaml}]
 indent_size = 2
 
-[docker-compose.yml]
-indent_size = 4
+[*.{js,jsx,ts,tsx,vue}]
+indent_size = 2
+max_line_length = 100
+ij_typescript_spaces_within_imports = true
+ij_typescript_spaces_within_object_literal_braces = true
+ij_javascript_spaces_within_imports = true
+ij_javascript_spaces_within_object_literal_braces = true
+
+[{*.ctp,*.hphp,*.inc,*.module,*.php,*.php4,*.php5,*.phtml}]
+ij_php_keep_rparen_and_lbrace_on_one_line = true
+ij_php_method_parameters_right_paren_on_new_line = true
+ij_php_method_parameters_wrap = on_every_item

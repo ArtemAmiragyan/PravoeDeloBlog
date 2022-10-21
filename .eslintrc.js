@@ -1,0 +1,36 @@
+module.exports = {
+  root: true,
+  env: {
+    node: true,
+  },
+  extends: [
+    '@vue/standard',
+    '@vue/typescript/recommended',
+  ],
+  parserOptions: {
+    ecmaVersion: 2020,
+  },
+  rules: {
+    camelcase: 'off',
+    semi: [0, 'always'],
+    'comma-dangle': [2, 'always-multiline'],
+    'no-useless-escape': 'off',
+    'space-before-function-paren': 'off',
+    'operator-linebreak': 'off',
+    'no-unused-expressions': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    'object-curly-spacing': 2,
+    '@typescript-eslint/object-curly-spacing': [2, 'always'],
+    '@typescript-eslint/semi': [2, 'always'],
+    '@typescript-eslint/quotes': [2, 'single'],
+    '@typescript-eslint/no-extra-sem': 0,
+    'vue/multi-word-component-names': 0,
+  },
+};

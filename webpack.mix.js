@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const aliasWebpackConfig = require('./webpack.config');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,7 +12,9 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.ts('resources/js/app.ts', 'build/app')
+  .vue({ version: 3 })
+  .sass('resources/sass/app.scss', 'build/app')
+  .webpackConfig(aliasWebpackConfig)
+  .sourceMaps()
+  .version();

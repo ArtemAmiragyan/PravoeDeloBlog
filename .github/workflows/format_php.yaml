@@ -1,0 +1,31 @@
+name: Format (PHP)
+
+on:
+  pull_request:
+    paths:
+      - 'app/**'
+      - 'database/**'
+      - 'config/**'
+      - 'bootstrap/**'
+      - 'routes/**'
+      - 'tests/**'
+      - 'resources/views/**'
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install
+        run: php /usr/bin/composer install
+
+      - name: Run phpcs for main directories
+        run: ./vendor/bin/phpcs
+
+      - name: Run PHPStan
+        run: ./vendor/bin/phpstan analyse
+
+      - name: Run Psalm
+        run: ./vendor/bin/psalm --no-cache

@@ -1,0 +1,45 @@
+name: Run PHP tests
+
+on:
+  pull_request:
+    paths:
+      - 'app/**'
+      - 'database/**'
+      - 'config/**'
+      - 'bootstrap/**'
+      - 'routes/**'
+      - 'tests/**'
+      - 'resources/views/**'
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0.31
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: blog_test
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        ports:
+          - 3306:3306
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install
+        run: php /usr/bin/composer install
+
+      - name: Prepare the app
+        run: |
+          yarn && yarn build
+          cp .env.github-actions .env
+          php artisan key:generate --force
+          php artisan migrate:fresh --seed
+
+      - name: Run tests
+        run: php ./vendor/bin/phpunit -d memory_limit=-1 --configuration phpunit.xml tests/
+
