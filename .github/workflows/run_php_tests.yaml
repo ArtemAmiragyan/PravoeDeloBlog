@@ -35,7 +35,7 @@ jobs:
 
       - name: Prepare the app
         run: |
-          yarn && yarn build
+          yarn && yarn prod
           cp .env.github-actions .env
           php artisan key:generate --force
           php artisan migrate:fresh --seed
