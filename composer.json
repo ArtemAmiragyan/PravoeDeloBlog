@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
@@ -18,7 +18,11 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "nunomaduro/larastan": "^1.0.3",
+        "psalm/plugin-laravel": "^2.0",
+        "squizlabs/php_codesniffer": "^3.7",
+        "vimeo/psalm": "^4.29"
     },
     "autoload": {
         "psr-4": {
@@ -33,6 +37,15 @@
         }
     },
     "scripts": {
+        "test": [
+            "phpunit --configuration phpunit.xml tests/",
+            "vendor/bin/phpcs",
+            "@analyses"
+        ],
+        "analyses": [
+            "vendor/bin/phpstan analyse",
+            "vendor/bin/psalm --no-cache"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
@@ -55,7 +68,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

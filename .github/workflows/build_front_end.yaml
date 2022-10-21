@@ -1,0 +1,18 @@
+name: Build front-end
+
+on:
+  pull_request:
+    paths:
+      - 'resources/js/**'
+
+jobs:
+  build-fron-end:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install
+        run: yarn
+
+      - name: Run building front-end apps
+        run: yarn prod
