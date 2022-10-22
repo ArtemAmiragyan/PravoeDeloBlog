@@ -1,0 +1,20 @@
+.header-filters {
+  display: flex;
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    transition: all .3s;
+    width: 128px;
+    color: $black;
+    text-decoration: none;
+
+    &:hover {
+      color: $dark-gray;
+    }
+
+    &:not(:last-child) {
+      border-right: 1px solid $light-gray;
+    }
+  }
+}

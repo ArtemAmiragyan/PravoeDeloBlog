@@ -1,0 +1,23 @@
+.header-profile-section {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  &__language {
+    margin-top: 2px;
+    margin-right: 20px;
+  }
+
+  &__account {
+    display: flex;
+  }
+
+  &__sign-in {
+    text-decoration: none;
+    color: $black;
+  }
+
+  &__avatar-thumbnail {
+    margin-left: 10px;
+  }
+}
