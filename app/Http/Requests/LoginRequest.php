@@ -47,9 +47,9 @@ class LoginRequest extends FormRequest
             $email = strtolower(request('email'));
 
             /** @var User $user */
-            $user = User::whereRaw("lower(email) = '{$email}'")->firstOrFail();
+            $user = User::whereRaw("lower(email) = '{$email}'")->first();
 
-            if (Hash::check(request('password'), $user->password)) {
+            if (Hash::check(request('password'), $user?->password)) {
                 return;
             }
 

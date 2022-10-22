@@ -16,7 +16,7 @@ class UserService
     {
         return [
             'user' => $user,
-            'token' => $user->createToken('default')->plainTextToken,
+            'token' => $user->createToken($user->email)->plainTextToken,
         ];
     }
 

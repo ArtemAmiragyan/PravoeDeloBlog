@@ -15,7 +15,7 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'resources/js'),
 
-      '~sass': __dirname + '/resources/sass/',
+      '~scss': __dirname + '/resources/sass/',
     },
   },
     module: {

@@ -1,0 +1,88 @@
+@import 'variables';
+@import './header/index.scss';
+@import 'login';
+@import "validation-errors";
+@import url('https://fonts.googleapis.com/css?family=Bodoni+Moda:700');
+@import url('https://fonts.googleapis.com/css?family=Rubik:wght:400,500');
+
+img {
+  max-width: 100%;
+}
+
+html {
+  overflow-y: scroll;
+  margin-right: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  min-width: 280px;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+article > * + * {
+  margin-top: 1em;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+.container {
+  width: 100%;
+  padding-right: 108px;
+  padding-left: 108px;
+  max-width: 1920px;
+  margin: auto;
+
+  @media screen and (max-width: 1700px) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
