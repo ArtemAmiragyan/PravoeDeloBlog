@@ -21,7 +21,7 @@ class ArticleController extends Controller
         return new ArticleCollection(
             Article::filter($filters)
                 ->with('author')
-                ->with('comments')
+                ->withCount('comments')
                 ->paginate()
         );
     }

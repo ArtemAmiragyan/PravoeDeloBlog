@@ -17,9 +17,9 @@ class ArticleFactory extends Factory
         $user = User::factory()->create();
 
         return [
-            'title' => $this->faker->title(),
-            'category' => $this->faker->name(),
-            'content' => $this->faker->realText,
+            'title' => $this->faker->text(50),
+            'category' => $this->faker->text(20),
+            'content' => $this->faker->realText(20000),
             'user_id' => $user->id,
         ];
     }
