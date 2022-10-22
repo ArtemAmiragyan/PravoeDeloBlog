@@ -49,7 +49,7 @@ class LoginRequest extends FormRequest
             /** @var User|null $user */
             $user = User::whereRaw("lower(email) = '{$email}'")->first();
 
-            if (Hash::check(request('password'), $user?->password)) {
+            if ($user && Hash::check(request('password'), $user->password)) {
                 return;
             }
 
