@@ -18,7 +18,7 @@ class ArticleFactory extends Factory
 
         return [
             'title' => $this->faker->title(),
-            'category' => $this->faker->shuffleString(5),
+            'category' => $this->faker->name(),
             'content' => $this->faker->realText,
             'user_id' => $user->id,
         ];

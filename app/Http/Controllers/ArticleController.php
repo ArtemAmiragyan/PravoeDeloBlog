@@ -72,6 +72,6 @@ class ArticleController extends Controller
 
     public function getCategories(): Collection
     {
-        return Article::pluck('category');
+        return Article::select('category')->distinct()->pluck('category');
     }
 }

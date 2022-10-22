@@ -218,15 +218,17 @@ class ArticleControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_gets_article_categories()
+    public function it_gets_unique_article_categories()
     {
         $this->signIn();
 
-        $categories = Article::factory(3)->create()->pluck('category');
+        Article::factory(3)->create(['category' => 'some']);
 
         $this->getJson('/api/articles/categories')
             ->assertOk()
-            ->assertJson($categories->toArray());
+            ->assertJson([
+                'some',
+            ]);
     }
 
     private function getInvalidDataProvider(): array
