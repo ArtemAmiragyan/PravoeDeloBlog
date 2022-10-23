@@ -7,11 +7,15 @@ use App\Http\Requests\ArticleRequest;
 use App\Http\Resources\Article\ArticleCollection;
 use App\Http\Resources\Article\ArticleResource;
 use App\Models\Article;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
 
 class ArticleController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * @param ArticleFilters $filters
      * @return ArticleCollection
@@ -22,6 +26,7 @@ class ArticleController extends Controller
             Article::filter($filters)
                 ->with('author')
                 ->withCount('comments')
+                ->latest()
                 ->paginate()
         );
     }
@@ -52,9 +57,12 @@ class ArticleController extends Controller
      * @param Article $article
      * @param ArticleRequest $request
      * @return Article
+     * @throws AuthorizationException
      */
     public function update(Article $article, ArticleRequest $request): Article
     {
+        $this->authorize($article);
+
         return tap($article)
             ->update($request->validated());
     }
@@ -62,9 +70,12 @@ class ArticleController extends Controller
     /**
      * @param Article $article
      * @return bool|null
+     * @throws AuthorizationException
      */
     public function destroy(Article $article): ?bool
     {
+        $this->authorize($article);
+
         $article->comments()->delete();
 
         return $article->delete();

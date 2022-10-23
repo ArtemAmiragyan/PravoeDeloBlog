@@ -35,6 +35,6 @@ class Article extends Model
     /** @return HasMany */
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->latest();
     }
 }

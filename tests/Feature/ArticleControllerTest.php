@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 use Throwable;
@@ -40,7 +41,11 @@ class ArticleControllerTest extends TestCase
                         'title',
                         'category',
                         'author_name',
-                        'comments_count'
+                        'comments_count',
+                        'can' => [
+                            'update',
+                            'delete',
+                        ],
                     ],
                 ],
                 'meta',
@@ -100,6 +105,10 @@ class ArticleControllerTest extends TestCase
         /** @var Comment $comment */
         $comment = Comment::factory()->create();
 
+        $article->author()
+            ->associate($this->loggedUser)
+            ->save();
+
         $comment->article()
             ->associate($article)
             ->save();
@@ -109,6 +118,23 @@ class ArticleControllerTest extends TestCase
 
         $this->assertSoftDeleted($comment);
         $this->assertSoftDeleted($article);
+    }
+
+    /** @test */
+    public function it_checks_non_article_owner_can_not_delete_article()
+    {
+        $this->signIn();
+
+        /** @var Article $article */
+        $article = Article::factory()->create();
+
+        $article->author()->associate(User::factory()->create())
+            ->save();
+
+        $this->deleteJson("/api/articles/{$article->id}")
+            ->assertForbidden();
+
+        $this->assertDatabaseHas('articles', ['id' => $article->id]);
     }
 
     /** @test */
@@ -165,6 +191,9 @@ class ArticleControllerTest extends TestCase
         $this->signIn();
 
         $article = Article::factory()->create();
+        $article->author()
+            ->associate($this->loggedUser)
+            ->save();
         $updateData = Article::factory()->make();
 
         $createdArticle = $this->putJson("/api/articles/{$article->id}", $updateData->toArray())
@@ -175,6 +204,27 @@ class ArticleControllerTest extends TestCase
 
         $this->assertDatabaseHas('articles', ['title' => $updateData->title]);
     }
+
+    /**
+     * @test
+     * @throws Throwable
+     */
+    public function it_checks_non_article_owner_can_not_update_article()
+    {
+        $this->signIn();
+
+        $article = Article::factory()->create();
+        $article->author()
+            ->associate(User::factory()->create())
+            ->save();
+        $updateData = Article::factory()->make();
+
+        $this->putJson("/api/articles/{$article->id}", $updateData->toArray())
+            ->assertForbidden();
+
+        $this->assertDatabaseMissing('articles', ['title' => $updateData->title]);
+    }
+
 
     /**
      * @test
@@ -241,7 +291,7 @@ class ArticleControllerTest extends TestCase
             'invalid category' => [['category' => true], 'category'],
             'invalid content' => [['content' => true], 'content'],
             'invalid title length' => [['title' => Str::random(256)], 'title'],
-            'invalid category length' => [['category' => Str::random(256)], 'category'],
+            'invalid category length' => [['category' => Str::random(101)], 'category'],
             'invalid content length' => [['content' => Str::random(20001)], 'content'],
         ];
     }

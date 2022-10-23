@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Article;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -13,10 +14,13 @@ class ArticleResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  Request  $request
-     * @return array<string, string|array<string, string>>
+     * @return array<string, mixed>
      */
     public function toArray($request): array
     {
+        /** @var User $authUser */
+        $authUser = auth()->user();
+
         return [
             'id' => $this->resource->id,
             'title' => $this->resource->title,
@@ -29,6 +33,10 @@ class ArticleResource extends JsonResource
                 'date' => $comment->created_at->toFormattedDateString(),
             ]),
             'date' => $this->resource->created_at->toFormattedDateString(),
+            'can' => [
+                'update' => $authUser->can('update', $this->resource),
+                'delete' => $authUser->can('delete', $this->resource),
+            ],
         ];
     }
 }

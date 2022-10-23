@@ -1,9 +1,9 @@
 <template>
   <div class="profile-page">
-     <LogoutButton />
+     <BaseLogoutButton />
   </div>
 </template>
 
 <script setup lang="ts">
-import LogoutButton from "@/components/profile/LogoutButton.vue";
+import BaseLogoutButton from '@/components/profile/BaseLogoutButton.vue';
 </script>
