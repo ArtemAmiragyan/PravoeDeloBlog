@@ -77,7 +77,7 @@ class ArticleControllerTest extends TestCase
 
         $this->getJson("/api/articles/{$article->id}")
             ->assertOk()
-            ->assertJson(['data' => $articleResourceData]);
+            ->assertJson($articleResourceData);
     }
 
     /** @test */

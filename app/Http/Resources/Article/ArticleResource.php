@@ -7,6 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleResource extends JsonResource
 {
+    public static $wrap = null;
+
     /**
      * Transform the resource into an array.
      *
@@ -20,7 +22,8 @@ class ArticleResource extends JsonResource
             'title' => $this->resource->title,
             'category' => $this->resource->category,
             'author_name' => $this->resource->author->name,
-            'comments' => $this->resource->comments->each(fn ($comment) => [
+            'content' => $this->resource->content,
+            'comments' => $this->resource->comments->map(fn ($comment) => [
                 'author_name' => $comment->author->name,
                 'content' => $comment->content,
                 'date' => $comment->created_at->toFormattedDateString(),
