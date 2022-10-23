@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import BaseFrontLayout from "@/layouts/BaseFrontLayout.vue";
+import BaseFrontLayout from '@/layouts/BaseFrontLayout.vue';
 </script>

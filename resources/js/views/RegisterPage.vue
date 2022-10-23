@@ -34,12 +34,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import User from '@/interfaces/User';
 import { useRouter } from 'vue-router';
-import { VALIDATION_ERROR } from "@/constants/response-codes";
-import BaseValidationErrors from "@/components/base/BaseValidationErrors.vue";
+import { VALIDATION_ERROR } from '@/constants/response-codes';
+import BaseValidationErrors from '@/components/base/BaseValidationErrors.vue';
 
 const auth = useAuthStore();
 

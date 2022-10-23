@@ -18,7 +18,7 @@ class RegisterControllerTest extends TestCase
     {
         $userRegisterData = User::factory()->make()->toArray();
 
-        $userRegisterData['password'] = $this->faker->password;
+        $userRegisterData['password'] = $this->faker->password(8);
         $userRegisterData['password_confirmation'] = $userRegisterData['password'];
 
         $this->postJson('/api/register', $userRegisterData)

@@ -2,7 +2,9 @@
   <div>
     <BaseHeader/>
 
-    <slot/>
+    <div class="container">
+      <slot/>
+    </div>
   </div>
 </template>
 

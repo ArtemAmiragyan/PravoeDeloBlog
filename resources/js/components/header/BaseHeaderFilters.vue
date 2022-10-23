@@ -4,7 +4,7 @@
       All Posts
     </router-link>
 
-    <router-link class="header-filters__item" :to="{ name: 'home' }">
+    <router-link class="header-filters__item" :to="{ name: 'my-articles' }">
       My Posts
     </router-link>
   </div>

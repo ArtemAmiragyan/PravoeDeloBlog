@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth';
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const auth = useAuthStore();
 const isLoading = ref<boolean>(false);
@@ -19,7 +19,7 @@ const handleSignOut = async () => {
 
     auth.logout();
 
-    await router.push({ name: 'login' })
+    await router.push({ name: 'login' });
   } finally {
     isLoading.value = false;
   }

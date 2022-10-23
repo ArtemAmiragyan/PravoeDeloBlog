@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +22,9 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('articles/categories', [ArticleController::class, 'getCategories']);
+    Route::apiResource('articles', ArticleController::class);
+    Route::apiResource('comments', CommentController::class)->only('store');
     Route::get('user', [LoginController::class, 'user']);
     Route::post('logout', [LoginController::class, 'logout']);
 });
